@@ -177,7 +177,7 @@ const Home = () => {
             <div>
               <div className="flex items-center gap-2 text-xl font-semibold mb-4">
                 <Code size={24} className="text-primary" />
-                <span>CodeEdu</span>
+                <span>Damosomelhor</span>
               </div>
               <p className="text-gray-400 mb-4">
                 Tornando a educação em programação acessível para todos.
@@ -213,7 +213,7 @@ const Home = () => {
           </div>
           
           <div className="border-t border-gray-800 mt-10 pt-6 text-center text-gray-400 text-sm">
-            <p>© {new Date().getFullYear()} CodeEdu. Todos os direitos reservados.</p>
+            <p>© {new Date().getFullYear()} Damosomelhor. Todos os direitos reservados.</p>
           </div>
         </div>
       </footer>

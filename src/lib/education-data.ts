@@ -1,4 +1,3 @@
-
 import { Course, User, Post, Lesson } from './types';
 
 export const courses: Course[] = [
@@ -79,6 +78,58 @@ export const courses: Course[] = [
     image: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
     featured: false,
     tags: ['Git', 'GitHub', 'Version Control']
+  },
+  {
+    id: '7',
+    title: 'Curso de Python 3 - Mundo 1',
+    description: 'Curso completo de Python 3 para iniciantes. Aprenda desde os fundamentos da linguagem até estruturas condicionais, com exercícios práticos.',
+    level: 'Beginner',
+    category: 'Backend',
+    author: 'Gustavo Guanabara',
+    duration: '40 horas',
+    lessons: 41,
+    image: 'https://i.ytimg.com/vi/S9uPNppGsGo/maxresdefault.jpg',
+    featured: true,
+    tags: ['Python', 'Programação', 'Iniciante']
+  },
+  {
+    id: '8',
+    title: 'Curso de HTML5 e CSS3',
+    description: 'Aprenda a criar sites utilizando HTML5 e CSS3 com o professor Gustavo Guanabara. Curso completo com projetos práticos e exercícios.',
+    level: 'Beginner',
+    category: 'Frontend',
+    author: 'Gustavo Guanabara',
+    duration: '50 horas',
+    lessons: 48,
+    image: 'https://i.ytimg.com/vi/Ejkb_YpuHWs/maxresdefault.jpg',
+    featured: true,
+    tags: ['HTML', 'CSS', 'Web Design']
+  },
+  {
+    id: '9',
+    title: 'Curso de JavaScript',
+    description: 'Curso completo de JavaScript do básico ao avançado. Aprenda a programar usando a linguagem mais popular da web.',
+    level: 'Intermediate',
+    category: 'Frontend',
+    author: 'Gustavo Guanabara',
+    duration: '45 horas',
+    lessons: 36,
+    image: 'https://i.ytimg.com/vi/BXqUH86F-kA/maxresdefault.jpg',
+    featured: false,
+    tags: ['JavaScript', 'ECMAScript', 'DOM']
+  },
+  {
+    id: '10',
+    title: 'Curso de PHP',
+    description: 'Aprenda PHP para desenvolvimento web do zero ao profissional. Curso completo com explicações sobre banco de dados e integração com MySQL.',
+    level: 'Intermediate',
+    category: 'Backend',
+    author: 'Gustavo Guanabara',
+    duration: '36 horas',
+    lessons: 32,
+    image: 'https://i.ytimg.com/vi/F7KzJ7e6EAc/maxresdefault.jpg',
+    featured: false,
+    tags: ['PHP', 'MySQL', 'Web Development']
   }
 ];
 

@@ -57,7 +57,7 @@ const EduNavbar = () => {
           className="flex items-center gap-2 text-2xl font-semibold text-primary transition-all duration-300"
         >
           <Code size={28} className="text-primary" />
-          <span className="hidden sm:inline">CodeEdu</span>
+          <span className="hidden sm:inline">Damosomelhor</span>
         </Link>
 
         <nav className="hidden md:flex items-center space-x-1">
