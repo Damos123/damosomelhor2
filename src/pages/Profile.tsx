@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import EduNavbar from '@/components/EduNavbar';
@@ -259,7 +258,7 @@ const generateMockUser = (id: string): User => {
     email: 'rafael.oliveira@example.com',
     avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
     bio: 'Desenvolvedor Full-Stack com 5 anos de experiência. Especializado em React, Node.js e TypeScript. Apaixonado por compartilhar conhecimento e ajudar novos programadores.',
-    role: 'Instrutor',
+    role: 'Instructor',
     joined: '2022-03-15'
   };
 };

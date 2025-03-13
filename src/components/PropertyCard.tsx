@@ -3,8 +3,17 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Badge } from '@/components/ui/badge';
-import { Property, formatPrice } from '@/lib/data';
+import { Property } from '@/lib/types';
 import { Bed, Bath, Square, MapPin, Heart } from 'lucide-react';
+
+// Função para formatar preço
+const formatPrice = (price: number, listingType: 'Sale' | 'Rent') => {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+    maximumFractionDigits: 0
+  }).format(price) + (listingType === 'Rent' ? '/mês' : '');
+};
 
 interface PropertyCardProps {
   property: Property;
@@ -54,11 +63,11 @@ const PropertyCard = ({ property, featured = false }: PropertyCardProps) => {
                 : 'bg-estate-500/10 text-estate-600 hover:bg-estate-500/20'
             }`}
           >
-            For {property.listingType}
+            {property.listingType === 'Sale' ? 'À Venda' : 'Para Alugar'}
           </Badge>
           {property.featured && (
             <Badge className="bg-amber-500/90 hover:bg-amber-500 text-white">
-              Featured
+              Destaque
             </Badge>
           )}
         </div>
@@ -66,7 +75,7 @@ const PropertyCard = ({ property, featured = false }: PropertyCardProps) => {
         <button
           onClick={handleFavoriteClick}
           className="absolute top-3 right-3 p-2 rounded-full bg-white/80 backdrop-blur-sm border border-estate-100 transition-all duration-300 hover:bg-white"
-          aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+          aria-label={isFavorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
         >
           <Heart
             size={18}
@@ -98,17 +107,17 @@ const PropertyCard = ({ property, featured = false }: PropertyCardProps) => {
         <div className="flex items-center justify-between border-t border-estate-100 pt-3 text-estate-600">
           <div className="flex items-center gap-1">
             <Bed size={16} className="text-estate-400" />
-            <span className="text-sm">{property.bedrooms} bd</span>
+            <span className="text-sm">{property.bedrooms} qtos</span>
           </div>
           
           <div className="flex items-center gap-1">
             <Bath size={16} className="text-estate-400" />
-            <span className="text-sm">{property.bathrooms} ba</span>
+            <span className="text-sm">{property.bathrooms} ban</span>
           </div>
           
           <div className="flex items-center gap-1">
             <Square size={16} className="text-estate-400" />
-            <span className="text-sm">{property.squareFeet.toLocaleString()} sf</span>
+            <span className="text-sm">{property.squareFeet.toLocaleString()} m²</span>
           </div>
         </div>
       </div>

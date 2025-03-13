@@ -1,91 +1,130 @@
 
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { properties, getFilteredProperties } from '@/lib/data';
-import { PropertyFilter } from '@/lib/types';
+import { useLocation } from 'react-router-dom';
+import { Property, PropertyFilter } from '@/lib/types';
 import MapView from '@/components/MapView';
-import PropertyFilters from '@/components/PropertyFilters';
 import Navbar from '@/components/Navbar';
+import { PropertyList } from '@/components/PropertyList';
 import { Button } from '@/components/ui/button';
-import { Grid, ArrowLeft, ListFilter } from 'lucide-react';
+import PropertyFilters from '@/components/PropertyFilters';
+import { DialogContent, DialogDescription, DialogHeader, DialogTitle, Dialog, DialogTrigger } from '@/components/ui/dialog';
+import { FilterIcon, MapIcon, List } from 'lucide-react';
 
 const MapPage = () => {
-  const [filteredProperties, setFilteredProperties] = useState(properties);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const navigate = useNavigate();
-
-  const handleFilterChange = (filters: PropertyFilter) => {
-    const filtered = getFilteredProperties(filters);
-    setFilteredProperties(filtered);
-  };
+  const location = useLocation();
+  const [properties, setProperties] = useState<Property[]>([]);
+  const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
+  const [filters, setFilters] = useState<PropertyFilter>({});
+  const [loading, setLoading] = useState(true);
+  const [view, setView] = useState<'map' | 'list'>('map');
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   useEffect(() => {
-    // Simulate loading delay
+    // Em uma aplicação real, este seria um fetch de dados reais
+    // Aqui, simplesmente simulamos um atraso de carregamento
     const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 800);
+      // Simulação de dados
+      const mockProperties: Property[] = Array.from({ length: 20 }, (_, i) => ({
+        id: `prop-${i + 1}`,
+        title: `Propriedade incrível ${i + 1}`,
+        description: `Uma bela propriedade com vista para a cidade. Local tranquilo e seguro, perfeito para famílias.`,
+        price: 500000 + (i * 100000),
+        address: `Rua das Flores, ${100 + i}`,
+        city: 'São Paulo',
+        state: 'SP',
+        zipCode: `0123${i}-000`,
+        location: {
+          lat: -23.55 + (Math.random() * 0.1),
+          lng: -46.63 + (Math.random() * 0.1)
+        },
+        bedrooms: 2 + (i % 3),
+        bathrooms: 1 + (i % 3),
+        squareFeet: 75 + (i * 25),
+        images: [
+          'https://images.unsplash.com/photo-1568605114967-8130f3a36994',
+          'https://images.unsplash.com/photo-1599427303058-f04cbcf4756f',
+          'https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6'
+        ],
+        featured: i < 3,
+        amenities: ['Ar Condicionado', 'Piscina', 'Garagem', 'Segurança 24h'],
+        yearBuilt: 2010 + (i % 10),
+        propertyType: i % 2 === 0 ? 'House' : (i % 3 === 0 ? 'Apartment' : 'Condo'),
+        listingType: i % 2 === 0 ? 'Sale' : 'Rent'
+      }));
+
+      setProperties(mockProperties);
+      setLoading(false);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
 
+  const handleViewToggle = () => {
+    setView(view === 'map' ? 'list' : 'map');
+  };
+
   return (
-    <div className="min-h-screen bg-estate-50">
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
       
-      <div className="pt-24 pb-8 container mx-auto px-4 md:px-6 max-w-7xl">
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <Link 
-              to="/search" 
-              className="inline-flex items-center text-estate-600 hover:text-estate-900 mb-4 transition-colors"
-            >
-              <ArrowLeft size={16} className="mr-1" />
-              Back to Properties
-            </Link>
-            <h1 className="text-3xl font-bold text-estate-900">Property Map</h1>
+      <div className="pt-16 lg:pt-20 pb-16">
+        <div className="container mx-auto max-w-screen-2xl px-4">
+          <div className="flex items-center justify-between mb-6">
+            <h1 className="text-2xl font-bold text-gray-900">Encontre seu imóvel perfeito</h1>
+            
+            <div className="flex items-center gap-2">
+              <Dialog open={filtersOpen} onOpenChange={setFiltersOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="flex items-center gap-2">
+                    <FilterIcon size={16} />
+                    <span>Filtros</span>
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-lg">
+                  <DialogHeader>
+                    <DialogTitle>Filtros</DialogTitle>
+                    <DialogDescription>
+                      Refine sua busca para encontrar o imóvel perfeito
+                    </DialogDescription>
+                  </DialogHeader>
+                  <PropertyFilters 
+                    filters={filters} 
+                    onChange={(newFilters) => {
+                      setFilters(newFilters);
+                      setFiltersOpen(false);
+                    }}
+                  />
+                </DialogContent>
+              </Dialog>
+              
+              <Button 
+                variant="outline" 
+                size="icon"
+                onClick={handleViewToggle}
+              >
+                {view === 'map' ? <List size={18} /> : <MapIcon size={18} />}
+              </Button>
+            </div>
           </div>
           
-          <div className="flex gap-3">
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="flex items-center gap-2"
-              onClick={() => setIsFilterOpen(!isFilterOpen)}
-            >
-              <ListFilter size={16} />
-              {isFilterOpen ? 'Hide Filters' : 'Filters'}
-            </Button>
-            
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="flex items-center gap-2"
-              asChild
-            >
-              <Link to="/search">
-                <Grid size={16} />
-                <span className="hidden sm:inline">List View</span>
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </div>
-      
-      <div className="relative container mx-auto px-4 md:px-6 max-w-7xl pb-16">
-        {isFilterOpen && (
-          <div className="absolute top-0 left-0 right-0 md:left-4 md:right-auto md:w-80 z-30 md:h-[calc(100vh-180px)] md:overflow-auto bg-white rounded-xl shadow-lg border border-estate-100 animate-slide-in">
-            <PropertyFilters onFilterChange={handleFilterChange} />
-          </div>
-        )}
-        
-        <div className="h-[calc(100vh-180px)] rounded-xl overflow-hidden">
-          {isLoading ? (
-            <div className="w-full h-full bg-estate-100 flex items-center justify-center">
-              <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+          {loading ? (
+            <div className="animate-pulse space-y-4">
+              <div className="h-[400px] bg-gray-200 rounded-lg"></div>
             </div>
           ) : (
-            <MapView properties={filteredProperties} standalone={true} />
+            <>
+              <div className={view === 'map' ? 'block' : 'hidden'}>
+                <MapView 
+                  properties={properties}
+                  selectedProperty={selectedProperty || undefined}
+                  onPropertySelect={(p) => setSelectedProperty(p)}
+                />
+              </div>
+              
+              <div className={view === 'list' ? 'block' : 'hidden'}>
+                <PropertyList properties={properties} />
+              </div>
+            </>
           )}
         </div>
       </div>

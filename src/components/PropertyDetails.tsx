@@ -1,223 +1,273 @@
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { Property, formatPrice } from '@/lib/data';
+import { Property } from '@/lib/types';
 import { 
   Bed, 
   Bath, 
   Square, 
   MapPin, 
+  Heart, 
+  Share, 
   Calendar, 
-  Home as HomeIcon, 
-  ChevronLeft, 
-  ChevronRight,
-  Heart
+  Home as HomeIcon,
+  Ruler, 
+  Building,
+  Car,
+  Trees,
+  Wifi,
+  Snowflake,
+  Wind,
+  Sofa,
+  UtensilsCrossed,
+  Lock
 } from 'lucide-react';
+
+// Função para formatar preço
+const formatPrice = (price: number, listingType: 'Sale' | 'Rent') => {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+    maximumFractionDigits: 0
+  }).format(price) + (listingType === 'Rent' ? '/mês' : '');
+};
 
 interface PropertyDetailsProps {
   property: Property;
 }
 
 const PropertyDetails = ({ property }: PropertyDetailsProps) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const nextImage = () => {
-    setIsImageLoaded(false);
-    setCurrentImageIndex((prev) => 
-      prev === property.images.length - 1 ? 0 : prev + 1
-    );
+  const handleFavoriteClick = () => {
+    setIsFavorite(!isFavorite);
   };
 
-  const prevImage = () => {
-    setIsImageLoaded(false);
-    setCurrentImageIndex((prev) => 
-      prev === 0 ? property.images.length - 1 : prev - 1
-    );
+  // Em uma aplicação real, isto seria provavelmente uma função real que envia solicitação
+  const shareProperty = () => {
+    // Lógica para compartilhar propriedade
+    alert(`Compartilhando: ${property.title}`);
   };
-
-  useEffect(() => {
-    // Preload the next image
-    const nextIndex = currentImageIndex === property.images.length - 1 ? 0 : currentImageIndex + 1;
-    const img = new Image();
-    img.src = property.images[nextIndex];
-  }, [currentImageIndex, property.images]);
 
   return (
-    <div className="animate-fade-in">
-      <div className="relative">
-        <AspectRatio ratio={21 / 9} className="bg-estate-100 rounded-2xl overflow-hidden">
-          {!isImageLoaded && (
-            <div className="absolute inset-0 flex items-center justify-center bg-estate-100">
-              <div className="w-10 h-10 border-4 border-primary/30 border-t-primary rounded-full animate-spin"></div>
-            </div>
-          )}
-          <img
-            src={property.images[currentImageIndex]}
-            alt={`${property.title} - Image ${currentImageIndex + 1}`}
-            className={`object-cover w-full h-full transition-opacity duration-500 ${
-              isImageLoaded ? 'opacity-100' : 'opacity-0'
-            } image-fade-in`}
-            onLoad={() => setIsImageLoaded(true)}
-          />
+    <div className="property-details pb-12">
+      {/* Imagens */}
+      <div className="mb-8">
+        <div className="relative">
+          <AspectRatio ratio={16 / 9} className="bg-gray-100 overflow-hidden rounded-lg mb-4">
+            <img 
+              src={property.images[activeImageIndex]} 
+              alt={property.title} 
+              className="object-cover w-full h-full"
+            />
+          </AspectRatio>
           
-          {/* Image Navigation */}
-          <button
-            className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-sm hover:bg-white transition-all duration-300"
-            onClick={prevImage}
-            aria-label="Previous image"
-          >
-            <ChevronLeft size={24} className="text-estate-900" />
-          </button>
-          
-          <button
-            className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-sm hover:bg-white transition-all duration-300"
-            onClick={nextImage}
-            aria-label="Next image"
-          >
-            <ChevronRight size={24} className="text-estate-900" />
-          </button>
-          
-          {/* Image counter */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-black/60 backdrop-blur-sm text-white text-sm">
-            {currentImageIndex + 1} / {property.images.length}
+          <div className="flex justify-between">
+            {property.images.slice(0, 5).map((image, index) => (
+              <div 
+                key={index}
+                className={`w-1/5 px-1 cursor-pointer transition-all duration-200 ${
+                  activeImageIndex === index ? 'opacity-100 ring-2 ring-primary' : 'opacity-70 hover:opacity-100'
+                }`}
+                onClick={() => setActiveImageIndex(index)}
+              >
+                <AspectRatio ratio={16 / 9} className="bg-gray-100 overflow-hidden rounded">
+                  <img 
+                    src={image} 
+                    alt={`${property.title} - Imagem ${index + 1}`} 
+                    className="object-cover w-full h-full"
+                  />
+                </AspectRatio>
+              </div>
+            ))}
           </div>
-        </AspectRatio>
-        
-        {/* Property type badge */}
-        <div className="absolute top-4 left-4 z-10 flex flex-wrap gap-2">
-          <Badge 
-            variant="secondary" 
-            className={`${
-              property.listingType === 'Sale'
-                ? 'bg-primary/10 text-primary hover:bg-primary/20'
-                : 'bg-estate-500/10 text-estate-600 hover:bg-estate-500/20'
-            }`}
-          >
-            For {property.listingType}
-          </Badge>
-          
-          <Badge 
-            variant="secondary"
-            className="bg-estate-100 text-estate-600 hover:bg-estate-200"
-          >
-            <HomeIcon size={14} className="mr-1" />
-            {property.propertyType}
-          </Badge>
         </div>
       </div>
       
-      <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2">
-          <div className="flex items-start justify-between mb-4">
-            <div>
-              <h1 className="text-3xl font-bold text-estate-900">{property.title}</h1>
-              <div className="flex items-center text-estate-600 mt-2">
-                <MapPin size={18} className="inline mr-1" />
-                <span>
-                  {property.address}, {property.city}, {property.state} {property.zipCode}
-                </span>
+      {/* Título e Ações */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+        <div>
+          <div className="flex flex-wrap gap-2 mb-3">
+            <Badge 
+              variant="secondary" 
+              className={`${
+                property.listingType === 'Sale'
+                  ? 'bg-primary/10 text-primary'
+                  : 'bg-purple-500/10 text-purple-600'
+              }`}
+            >
+              {property.listingType === 'Sale' ? 'À Venda' : 'Para Alugar'}
+            </Badge>
+            <Badge variant="outline" className="border-gray-200">
+              {property.propertyType}
+            </Badge>
+            {property.featured && (
+              <Badge className="bg-amber-500 text-white">
+                Destaque
+              </Badge>
+            )}
+          </div>
+          
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{property.title}</h1>
+          
+          <div className="flex items-center text-gray-500 text-sm">
+            <MapPin size={16} className="mr-1" />
+            {property.address}, {property.city}, {property.state} {property.zipCode}
+          </div>
+        </div>
+        
+        <div className="flex gap-3 mt-4 md:mt-0">
+          <Button 
+            variant="outline" 
+            size="icon"
+            className={`rounded-full ${isFavorite ? 'text-red-500 border-red-200' : ''}`}
+            onClick={handleFavoriteClick}
+          >
+            <Heart 
+              size={20} 
+              className={isFavorite ? 'fill-red-500' : ''} 
+            />
+          </Button>
+          
+          <Button 
+            variant="outline" 
+            size="icon"
+            className="rounded-full"
+            onClick={shareProperty}
+          >
+            <Share size={20} />
+          </Button>
+          
+          <Button className="rounded-full">
+            Agendar Visita
+          </Button>
+        </div>
+      </div>
+      
+      {/* Preço e Detalhes */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="md:col-span-2">
+          <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              {formatPrice(property.price, property.listingType)}
+              {property.listingType === 'Rent' && <span className="text-sm font-normal text-gray-500"> /mês</span>}
+            </h2>
+            
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+              <div className="text-center p-3 bg-gray-50 rounded-lg">
+                <Bed size={20} className="mx-auto mb-1 text-gray-600" />
+                <div className="text-sm text-gray-600">Quartos</div>
+                <div className="font-semibold text-gray-900">{property.bedrooms}</div>
+              </div>
+              
+              <div className="text-center p-3 bg-gray-50 rounded-lg">
+                <Bath size={20} className="mx-auto mb-1 text-gray-600" />
+                <div className="text-sm text-gray-600">Banheiros</div>
+                <div className="font-semibold text-gray-900">{property.bathrooms}</div>
+              </div>
+              
+              <div className="text-center p-3 bg-gray-50 rounded-lg">
+                <Square size={20} className="mx-auto mb-1 text-gray-600" />
+                <div className="text-sm text-gray-600">Área</div>
+                <div className="font-semibold text-gray-900">{property.squareFeet.toLocaleString()} m²</div>
+              </div>
+              
+              <div className="text-center p-3 bg-gray-50 rounded-lg">
+                <Calendar size={20} className="mx-auto mb-1 text-gray-600" />
+                <div className="text-sm text-gray-600">Ano</div>
+                <div className="font-semibold text-gray-900">{property.yearBuilt}</div>
               </div>
             </div>
             
-            <div className="text-right">
-              <div className="text-3xl font-bold text-estate-900">
-                {formatPrice(property.price, property.listingType)}
-              </div>
+            <div className="border-t border-gray-100 pt-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Descrição</h3>
+              <p className="text-gray-600 mb-4 whitespace-pre-line">{property.description}</p>
             </div>
           </div>
           
-          <div className="flex flex-wrap items-center gap-8 py-4 border-y border-estate-100 my-6">
-            <div className="flex items-center gap-2">
-              <Bed size={20} className="text-estate-400" />
-              <div>
-                <div className="font-semibold">{property.bedrooms}</div>
-                <div className="text-sm text-estate-500">Bedrooms</div>
-              </div>
-            </div>
-            
-            <div className="flex items-center gap-2">
-              <Bath size={20} className="text-estate-400" />
-              <div>
-                <div className="font-semibold">{property.bathrooms}</div>
-                <div className="text-sm text-estate-500">Bathrooms</div>
-              </div>
-            </div>
-            
-            <div className="flex items-center gap-2">
-              <Square size={20} className="text-estate-400" />
-              <div>
-                <div className="font-semibold">{property.squareFeet.toLocaleString()}</div>
-                <div className="text-sm text-estate-500">Sq. Feet</div>
-              </div>
-            </div>
-            
-            <div className="flex items-center gap-2">
-              <Calendar size={20} className="text-estate-400" />
-              <div>
-                <div className="font-semibold">{property.yearBuilt}</div>
-                <div className="text-sm text-estate-500">Year Built</div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="mb-8">
-            <h2 className="text-xl font-semibold mb-4">Description</h2>
-            <p className="text-estate-600 leading-relaxed whitespace-pre-line">
-              {property.description}
-            </p>
-          </div>
-          
-          <div className="mb-8">
-            <h2 className="text-xl font-semibold mb-4">Amenities</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-y-3">
-              {property.amenities.map((amenity) => (
-                <div key={amenity} className="flex items-center">
-                  <div className="w-2 h-2 bg-primary rounded-full mr-2"></div>
-                  <span>{amenity}</span>
+          <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Comodidades</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-y-4">
+              {property.amenities.map((amenity, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  {getAmenityIcon(amenity)}
+                  <span className="text-gray-600">{amenity}</span>
                 </div>
               ))}
             </div>
           </div>
         </div>
         
-        <div className="lg:col-span-1">
-          <div className="sticky top-28 rounded-xl border border-estate-200 p-6 bg-white shadow-sm">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold">Interested in this property?</h2>
+        <div>
+          {/* Formulário de Contato */}
+          <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm sticky top-20">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Contato</h3>
+            
+            <div className="space-y-4 mb-6">
+              <div className="flex items-center gap-3 pb-4 border-b border-gray-100">
+                <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+                  <HomeIcon size={20} className="text-gray-500" />
+                </div>
+                <div>
+                  <div className="text-sm text-gray-500">Imobiliária</div>
+                  <div className="font-medium text-gray-900">ImoCasaDBC</div>
+                </div>
+              </div>
+              
+              <Button className="w-full">
+                (11) 99123-4567
+              </Button>
+              
+              <Button variant="outline" className="w-full">
+                Enviar mensagem
+              </Button>
             </div>
             
-            <Button className="w-full mb-3 py-6 rounded-full text-base">
-              Schedule a Tour
-            </Button>
-            
-            <Button 
-              variant="outline" 
-              className="w-full py-6 rounded-full text-base flex items-center justify-center gap-2"
-              onClick={() => setIsFavorite(!isFavorite)}
-            >
-              <Heart 
-                size={18} 
-                className={isFavorite ? 'fill-red-500 text-red-500' : ''} 
-              />
-              {isFavorite ? 'Saved to Favorites' : 'Save to Favorites'}
-            </Button>
-            
-            <Separator className="my-6" />
-            
-            <div className="text-center text-estate-600 text-sm">
-              <p>Listing ID: {property.id}</p>
-              <p className="mt-1">Updated: {new Date().toLocaleDateString()}</p>
+            <div className="text-center text-sm text-gray-500">
+              <p>Código do imóvel: {property.id}</p>
             </div>
           </div>
         </div>
       </div>
     </div>
   );
+};
+
+// Função auxiliar para obter o ícone adequado para cada comodidade
+const getAmenityIcon = (amenity: string) => {
+  const iconSize = 18;
+  const iconClass = "text-gray-500";
+  
+  switch (amenity.toLowerCase()) {
+    case 'garagem':
+    case 'estacionamento':
+      return <Car size={iconSize} className={iconClass} />;
+    case 'ar condicionado':
+      return <Snowflake size={iconSize} className={iconClass} />;
+    case 'piscina':
+      return <Ruler size={iconSize} className={iconClass} />;
+    case 'jardim':
+      return <Trees size={iconSize} className={iconClass} />;
+    case 'wifi':
+    case 'internet':
+      return <Wifi size={iconSize} className={iconClass} />;
+    case 'móveis':
+    case 'mobiliado':
+      return <Sofa size={iconSize} className={iconClass} />;
+    case 'cozinha equipada':
+      return <UtensilsCrossed size={iconSize} className={iconClass} />;
+    case 'segurança':
+    case 'porteiro':
+      return <Lock size={iconSize} className={iconClass} />;
+    case 'ventilação':
+      return <Wind size={iconSize} className={iconClass} />;
+    default:
+      return <Building size={iconSize} className={iconClass} />;
+  }
 };
 
 export default PropertyDetails;

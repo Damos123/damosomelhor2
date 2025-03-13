@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import EduNavbar from '@/components/EduNavbar';
@@ -200,7 +199,7 @@ const generateMockPosts = (): Post[] => {
       name: 'Carlos Silva',
       email: 'carlos@example.com',
       avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
-      role: 'Instrutor',
+      role: 'Instructor',
       joined: '2022-01-15'
     },
     {
@@ -208,7 +207,7 @@ const generateMockPosts = (): Post[] => {
       name: 'Ana Pereira',
       email: 'ana@example.com',
       avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
-      role: 'Estudante',
+      role: 'Student',
       joined: '2022-03-22'
     },
     {
@@ -216,7 +215,7 @@ const generateMockPosts = (): Post[] => {
       name: 'Bruno Costa',
       email: 'bruno@example.com',
       avatar: 'https://randomuser.me/api/portraits/men/67.jpg',
-      role: 'Estudante',
+      role: 'Student',
       joined: '2022-05-10'
     }
   ];
