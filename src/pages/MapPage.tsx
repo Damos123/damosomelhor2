@@ -88,8 +88,7 @@ const MapPage = () => {
                     </DialogDescription>
                   </DialogHeader>
                   <PropertyFilters 
-                    filters={filters} 
-                    onChange={(newFilters) => {
+                    onFilterChange={(newFilters) => {
                       setFilters(newFilters);
                       setFiltersOpen(false);
                     }}
