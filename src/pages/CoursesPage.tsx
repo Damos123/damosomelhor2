@@ -18,7 +18,7 @@ const CoursesPage = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   useEffect(() => {
-    // Simulate loading
+    // Simular carregamento
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 800);
@@ -27,9 +27,9 @@ const CoursesPage = () => {
   }, []);
 
   useEffect(() => {
-    // Filter courses based on search and selected filters
+    // Filtrar cursos com base na busca e filtros selecionados
     const filtered = courses.filter(course => {
-      // Search filter
+      // Filtro de busca
       if (searchQuery) {
         const query = searchQuery.toLowerCase();
         if (!course.title.toLowerCase().includes(query) && 
@@ -39,12 +39,12 @@ const CoursesPage = () => {
         }
       }
       
-      // Category filter
+      // Filtro de categoria
       if (selectedCategories.length > 0 && !selectedCategories.includes(course.category)) {
         return false;
       }
       
-      // Level filter
+      // Filtro de nível
       if (selectedLevels.length > 0 && !selectedLevels.includes(course.level)) {
         return false;
       }
@@ -118,7 +118,7 @@ const CoursesPage = () => {
           </div>
           
           <div className="flex flex-col md:flex-row gap-6">
-            {/* Filters sidebar */}
+            {/* Barra lateral de filtros */}
             <aside className={`bg-white p-6 rounded-xl border border-gray-100 shadow-sm md:w-72 md:sticky md:top-24 transition-all duration-300 ${isFilterOpen ? 'block' : 'hidden md:block'}`}>
               <div className="flex items-center justify-between mb-6 md:hidden">
                 <h3 className="font-medium text-lg">Filtros</h3>
@@ -182,7 +182,7 @@ const CoursesPage = () => {
               </div>
             </aside>
             
-            {/* Course grid */}
+            {/* Grade de cursos */}
             <div className="flex-1">
               {isLoading ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

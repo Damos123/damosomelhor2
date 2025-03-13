@@ -13,7 +13,7 @@ const Community = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   
   useEffect(() => {
-    // Simulate loading
+    // Simular carregamento
     const timer = setTimeout(() => {
       setPosts(generateMockPosts());
       setIsLoading(false);
@@ -29,13 +29,13 @@ const Community = () => {
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className="flex flex-col md:flex-row gap-6">
-            {/* Main Content */}
+            {/* Conteúdo Principal */}
             <div className="flex-1">
               <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 mb-6">
                 <div className="flex items-center gap-4">
                   <img 
                     src="https://randomuser.me/api/portraits/men/32.jpg" 
-                    alt="User" 
+                    alt="Usuário" 
                     className="w-10 h-10 rounded-full object-cover"
                   />
                   <Input 
@@ -117,7 +117,7 @@ const Community = () => {
               )}
             </div>
             
-            {/* Sidebar */}
+            {/* Barra Lateral */}
             <div className="w-full md:w-80 space-y-6">
               <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Comunidade CodeEdu</h3>
@@ -192,7 +192,7 @@ const Community = () => {
   );
 };
 
-// Mock Data Generator
+// Gerador de Dados Simulados
 const generateMockPosts = (): Post[] => {
   const users: User[] = [
     {
@@ -200,7 +200,7 @@ const generateMockPosts = (): Post[] => {
       name: 'Carlos Silva',
       email: 'carlos@example.com',
       avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
-      role: 'Instructor',
+      role: 'Instrutor',
       joined: '2022-01-15'
     },
     {
@@ -208,7 +208,7 @@ const generateMockPosts = (): Post[] => {
       name: 'Ana Pereira',
       email: 'ana@example.com',
       avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
-      role: 'Student',
+      role: 'Estudante',
       joined: '2022-03-22'
     },
     {
@@ -216,7 +216,7 @@ const generateMockPosts = (): Post[] => {
       name: 'Bruno Costa',
       email: 'bruno@example.com',
       avatar: 'https://randomuser.me/api/portraits/men/67.jpg',
-      role: 'Student',
+      role: 'Estudante',
       joined: '2022-05-10'
     }
   ];

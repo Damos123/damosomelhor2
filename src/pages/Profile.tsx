@@ -12,7 +12,7 @@ import {
   GraduationCap, 
   Award, 
   Link as LinkIcon, 
-  GitHub, 
+  Github, 
   Linkedin, 
   Twitter,
   BookOpen
@@ -27,13 +27,13 @@ const Profile = () => {
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
-    // Simulate loading
+    // Simular carregamento
     const timer = setTimeout(() => {
-      // In a real app, fetch user data based on id
+      // Em uma aplicação real, buscar dados do usuário com base no id
       const mockUser = generateMockUser(id || '1');
       setUser(mockUser);
       
-      // Mock enrolled courses and posts
+      // Simular cursos matriculados e posts
       setEnrolledCourses(generateMockEnrolledCourses());
       setPosts(generateMockPosts(mockUser));
       
@@ -68,7 +68,7 @@ const Profile = () => {
             <h1 className="text-3xl font-bold text-gray-900 mb-4">Usuário não encontrado</h1>
             <p className="text-gray-600 mb-8">O perfil que você está procurando não existe ou foi removido.</p>
             <Button asChild>
-              <Link to="/">Voltar para Home</Link>
+              <Link to="/">Voltar para Início</Link>
             </Button>
           </div>
         </div>
@@ -82,7 +82,7 @@ const Profile = () => {
       
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
-          {/* Profile Header */}
+          {/* Cabeçalho do Perfil */}
           <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden mb-6">
             <div className="h-48 bg-gradient-to-r from-blue-500 to-indigo-600 relative">
               <div className="absolute -bottom-16 left-8 ring-4 ring-white rounded-full overflow-hidden">
@@ -140,7 +140,7 @@ const Profile = () => {
               
               <div className="flex gap-3 mt-6 pt-6 border-t border-gray-100">
                 <Link to="#" className="text-gray-500 hover:text-gray-900">
-                  <GitHub size={20} />
+                  <Github size={20} />
                 </Link>
                 <Link to="#" className="text-gray-500 hover:text-gray-900">
                   <Linkedin size={20} />
@@ -155,7 +155,7 @@ const Profile = () => {
             </div>
           </div>
           
-          {/* Profile Content */}
+          {/* Conteúdo do Perfil */}
           <Tabs defaultValue="courses">
             <TabsList className="mb-6">
               <TabsTrigger value="courses">Cursos</TabsTrigger>
@@ -251,7 +251,7 @@ const Profile = () => {
   );
 };
 
-// Mock Data Generators
+// Geradores de Dados Simulados
 const generateMockUser = (id: string): User => {
   return {
     id,
@@ -259,7 +259,7 @@ const generateMockUser = (id: string): User => {
     email: 'rafael.oliveira@example.com',
     avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
     bio: 'Desenvolvedor Full-Stack com 5 anos de experiência. Especializado em React, Node.js e TypeScript. Apaixonado por compartilhar conhecimento e ajudar novos programadores.',
-    role: 'Instructor',
+    role: 'Instrutor',
     joined: '2022-03-15'
   };
 };

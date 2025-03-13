@@ -13,7 +13,7 @@ const Home = () => {
   const featuredCourses = courses.filter(course => course.featured);
 
   useEffect(() => {
-    // Simulate loading
+    // Simular carregamento
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 800);
@@ -25,7 +25,7 @@ const Home = () => {
     <div className="min-h-screen bg-gray-50">
       <EduNavbar />
       
-      {/* Hero Section */}
+      {/* Seção Hero */}
       <section className="pt-24 lg:pt-28 pb-10 lg:pb-20 bg-gradient-to-br from-blue-50 to-indigo-50">
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className="grid md:grid-cols-2 gap-10 items-center">
@@ -57,7 +57,7 @@ const Home = () => {
               <div className="absolute w-72 h-72 bg-primary/10 rounded-full -top-10 -right-10"></div>
               <img 
                 src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-                alt="Students learning" 
+                alt="Estudantes aprendendo" 
                 className="rounded-lg shadow-lg relative z-10 image-fade-in"
               />
               <div className="absolute -bottom-10 -left-10 w-60 h-60 bg-yellow-400/10 rounded-full"></div>
@@ -66,7 +66,7 @@ const Home = () => {
         </div>
       </section>
       
-      {/* Featured Courses */}
+      {/* Cursos em Destaque */}
       <section className="py-16">
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className="flex items-center justify-between mb-10">
@@ -107,7 +107,7 @@ const Home = () => {
         </div>
       </section>
       
-      {/* Features */}
+      {/* Recursos */}
       <section className="py-16 bg-gray-100">
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className="text-center max-w-3xl mx-auto mb-12">
@@ -170,7 +170,7 @@ const Home = () => {
         </div>
       </section>
       
-      {/* Footer */}
+      {/* Rodapé */}
       <footer className="bg-gray-900 text-white py-12">
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
@@ -187,7 +187,7 @@ const Home = () => {
             <div>
               <h3 className="text-lg font-medium mb-4">Navegação</h3>
               <ul className="space-y-2">
-                <li><Link to="/" className="text-gray-400 hover:text-white transition-colors">Home</Link></li>
+                <li><Link to="/" className="text-gray-400 hover:text-white transition-colors">Início</Link></li>
                 <li><Link to="/courses" className="text-gray-400 hover:text-white transition-colors">Cursos</Link></li>
                 <li><Link to="/community" className="text-gray-400 hover:text-white transition-colors">Comunidade</Link></li>
               </ul>

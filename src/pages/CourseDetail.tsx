@@ -14,7 +14,7 @@ const CourseDetail = () => {
   const [course, setCourse] = useState(getCourseById(id || ''));
   const [isLoading, setIsLoading] = useState(true);
 
-  // Create mock lessons
+  // Criar lições simuladas
   const lessons = Array.from({ length: course?.lessons || 10 }, (_, i) => ({
     id: `lesson-${i + 1}`,
     title: `Lição ${i + 1}: ${i === 0 ? 'Introdução' : i === 1 ? 'Conceitos Fundamentais' : `Aplicação Prática ${i - 1}`}`,
@@ -23,7 +23,7 @@ const CourseDetail = () => {
   }));
 
   useEffect(() => {
-    // Simulate loading
+    // Simular carregamento
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 800);
@@ -66,7 +66,7 @@ const CourseDetail = () => {
         </div>
       ) : (
         <>
-          {/* Course Header */}
+          {/* Cabeçalho do Curso */}
           <div className="pt-24 pb-8 bg-gradient-to-b from-gray-100 to-white">
             <div className="container mx-auto px-4 md:px-6 max-w-7xl">
               <Link to="/courses" className="inline-flex items-center text-gray-600 hover:text-gray-900 mb-4">
@@ -125,7 +125,7 @@ const CourseDetail = () => {
             </div>
           </div>
           
-          {/* Course Content */}
+          {/* Conteúdo do Curso */}
           <div className="py-12">
             <div className="container mx-auto px-4 md:px-6 max-w-7xl">
               <Tabs defaultValue="content" className="w-full">
@@ -211,7 +211,7 @@ const CourseDetail = () => {
                     <div className="flex items-start gap-6">
                       <img 
                         src="https://randomuser.me/api/portraits/men/32.jpg" 
-                        alt="Instructor" 
+                        alt="Instrutor" 
                         className="w-24 h-24 rounded-full object-cover"
                       />
                       <div>
@@ -263,7 +263,7 @@ const CourseDetail = () => {
                           <div className="flex items-center gap-3 mb-3">
                             <img 
                               src={`https://randomuser.me/api/portraits/${i % 2 === 0 ? 'women' : 'men'}/${i + 20}.jpg`} 
-                              alt="User" 
+                              alt="Usuário" 
                               className="w-10 h-10 rounded-full object-cover"
                             />
                             <div>

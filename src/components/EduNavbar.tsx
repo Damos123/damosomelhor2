@@ -41,7 +41,7 @@ const EduNavbar = () => {
         </Link>
 
         <nav className="hidden md:flex items-center space-x-1">
-          <NavLink to="/" label="Home" />
+          <NavLink to="/" label="Início" />
           <NavLink to="/courses" label="Cursos" />
           <NavLink to="/community" label="Comunidade" />
         </nav>
@@ -62,7 +62,7 @@ const EduNavbar = () => {
             className="rounded-full border border-primary/20 hover:bg-primary/5"
             asChild
           >
-            <Link to="/login">Login</Link>
+            <Link to="/login">Entrar</Link>
           </Button>
 
           <Button 
@@ -76,7 +76,7 @@ const EduNavbar = () => {
         <button
           className="md:hidden flex items-center justify-center"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle menu"
+          aria-label="Alternar menu"
         >
           {mobileMenuOpen ? (
             <X size={24} className="text-gray-900" />
@@ -86,7 +86,7 @@ const EduNavbar = () => {
         </button>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Navegação Mobile */}
       <div
         className={`md:hidden fixed inset-0 bg-white z-40 transform transition-transform duration-300 ease-out-expo ${
           mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
@@ -103,13 +103,13 @@ const EduNavbar = () => {
             />
           </div>
           
-          <MobileNavLink to="/" label="Home" />
+          <MobileNavLink to="/" label="Início" />
           <MobileNavLink to="/courses" label="Cursos" />
           <MobileNavLink to="/community" label="Comunidade" />
           
           <div className="flex flex-col space-y-3 pt-4">
             <Button variant="outline" className="w-full rounded-full" asChild>
-              <Link to="/login">Login</Link>
+              <Link to="/login">Entrar</Link>
             </Button>
             
             <Button className="w-full rounded-full" asChild>
