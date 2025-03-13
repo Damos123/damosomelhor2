@@ -94,12 +94,12 @@ const EduNavbar = () => {
         style={{ top: '60px' }}
       >
         <div className="flex flex-col p-6 space-y-4">
-          <div className="mb-4">
+          <div className="mb-4 relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
             <Input 
               type="search" 
               placeholder="Buscar cursos..." 
               className="w-full h-10 rounded-full pl-10"
-              icon={<Search size={16} />}
             />
           </div>
           

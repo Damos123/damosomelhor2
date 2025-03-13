@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, Users, Star, Mail } from 'lucide-react';
+import { ArrowRight, BookOpen, Users, Star, Mail, Code } from 'lucide-react';
 import EduNavbar from '@/components/EduNavbar';
 import CourseCard from '@/components/CourseCard';
 import { Button } from '@/components/ui/button';

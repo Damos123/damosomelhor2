@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getCourseById } from '@/lib/education-data';
-import { toast } from '@/components/ui/sonner';
+import { toast } from 'sonner';
 
 const CourseDetail = () => {
   const { id } = useParams<{ id: string }>();
