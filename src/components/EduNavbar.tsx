@@ -1,14 +1,25 @@
 
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Search, BookOpen, Code, Users } from 'lucide-react';
+import { Menu, X, Search, Code, User, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useAuth } from '@/contexts/AuthContext';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const EduNavbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { user, isAuthenticated, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +33,15 @@ const EduNavbar = () => {
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [location]);
+
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(part => part.charAt(0))
+      .join('')
+      .toUpperCase()
+      .substring(0, 2);
+  };
 
   return (
     <header
@@ -56,21 +76,50 @@ const EduNavbar = () => {
             />
           </div>
           
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="rounded-full border border-primary/20 hover:bg-primary/5"
-            asChild
-          >
-            <Link to="/login">Entrar</Link>
-          </Button>
+          {isAuthenticated ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-9 w-9 rounded-full">
+                  <Avatar className="h-9 w-9">
+                    <AvatarImage src={user?.avatar} alt={user?.name} />
+                    <AvatarFallback>{user?.name ? getInitials(user.name) : 'U'}</AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56" align="end" forceMount>
+                <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to={`/profile/${user?.id}`} className="cursor-pointer">
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Meu Perfil</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={logout} className="cursor-pointer text-red-600">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Sair</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="rounded-full border border-primary/20 hover:bg-primary/5"
+                asChild
+              >
+                <Link to="/login">Entrar</Link>
+              </Button>
 
-          <Button 
-            className="rounded-full"
-            asChild
-          >
-            <Link to="/register">Cadastrar</Link>
-          </Button>
+              <Button 
+                className="rounded-full"
+                asChild
+              >
+                <Link to="/register">Cadastrar</Link>
+              </Button>
+            </>
+          )}
         </div>
 
         <button
@@ -108,13 +157,35 @@ const EduNavbar = () => {
           <MobileNavLink to="/community" label="Comunidade" />
           
           <div className="flex flex-col space-y-3 pt-4">
-            <Button variant="outline" className="w-full rounded-full" asChild>
-              <Link to="/login">Entrar</Link>
-            </Button>
-            
-            <Button className="w-full rounded-full" asChild>
-              <Link to="/register">Cadastrar</Link>
-            </Button>
+            {isAuthenticated ? (
+              <>
+                <Button variant="outline" className="w-full rounded-full justify-start" asChild>
+                  <Link to={`/profile/${user?.id}`}>
+                    <User className="mr-2 h-4 w-4" />
+                    Meu Perfil
+                  </Link>
+                </Button>
+                
+                <Button 
+                  variant="destructive" 
+                  className="w-full rounded-full justify-start"
+                  onClick={logout}
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Sair
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button variant="outline" className="w-full rounded-full" asChild>
+                  <Link to="/login">Entrar</Link>
+                </Button>
+                
+                <Button className="w-full rounded-full" asChild>
+                  <Link to="/register">Cadastrar</Link>
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </div>

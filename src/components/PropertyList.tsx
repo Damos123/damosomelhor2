@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Property } from '@/lib/types';
-import { PropertyCard } from './PropertyCard';
+import PropertyCard from './PropertyCard';
 
 export interface PropertyListProps {
   properties: Property[];
