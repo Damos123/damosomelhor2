@@ -7,7 +7,7 @@ export const courses: Course[] = [
     description: 'Aprenda os fundamentos de HTML5 e CSS3 para criar websites modernos e responsivos. Este curso cobre todos os elementos HTML essenciais e propriedades CSS para iniciantes.',
     level: 'Beginner',
     category: 'Frontend',
-    author: 'Maria Silva',
+    author: 'Gustavo Guanabara',
     duration: '15 horas',
     lessons: 24,
     image: 'https://images.unsplash.com/photo-1621839673705-6617adf9e890?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
@@ -20,7 +20,7 @@ export const courses: Course[] = [
     description: 'Domine os conceitos fundamentais de JavaScript, a linguagem de programação da web. Aprenda sobre variáveis, funções, loops, condicionais e manipulação do DOM.',
     level: 'Beginner',
     category: 'Frontend',
-    author: 'Carlos Mendes',
+    author: 'Gustavo Guanabara',
     duration: '20 horas',
     lessons: 32,
     image: 'https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80',
@@ -46,7 +46,7 @@ export const courses: Course[] = [
     description: 'Aprenda a utilizar Python no desenvolvimento web com frameworks como Flask e Django. Entenda como criar APIs RESTful e aplicações web completas.',
     level: 'Intermediate',
     category: 'Backend',
-    author: 'Roberto Alves',
+    author: 'Gustavo Guanabara',
     duration: '30 horas',
     lessons: 45,
     image: 'https://cdn.pixabay.com/photo/2023/11/21/22/20/python-8406604_1280.jpg',
@@ -149,7 +149,7 @@ export const courses: Course[] = [
 export const users: User[] = [
   {
     id: '1',
-    name: 'Maria Silva',
+    name: 'Gustavo Guanabara',
     email: 'maria@example.com',
     avatar: 'https://randomuser.me/api/portraits/women/12.jpg',
     bio: 'Desenvolvedora frontend com 10 anos de experiência. Especialista em HTML, CSS e JavaScript.',
@@ -158,7 +158,7 @@ export const users: User[] = [
   },
   {
     id: '2',
-    name: 'Carlos Mendes',
+    name: 'Gustavo Guanabara',
     email: 'carlos@example.com',
     avatar: 'https://randomuser.me/api/portraits/men/22.jpg',
     bio: 'Engenheiro de software full-stack com foco em JavaScript e Node.js.',
@@ -176,7 +176,7 @@ export const users: User[] = [
   },
   {
     id: '4',
-    name: 'Roberto Alves',
+    name: 'Gustavo Guanabara',
     email: 'roberto@example.com',
     avatar: 'https://randomuser.me/api/portraits/men/45.jpg',
     bio: 'Desenvolvedor Python e entusiasta de ciência de dados.',
