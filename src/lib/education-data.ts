@@ -1,3 +1,4 @@
+
 import { Course, User, Post, Lesson } from './types';
 
 export const courses: Course[] = [
@@ -49,7 +50,7 @@ export const courses: Course[] = [
     author: 'Roberto Alves',
     duration: '30 horas',
     lessons: 45,
-    image: 'https://images.unsplash.com/photo-1526379879527-8559ecfcb0c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80',
+    image: 'https://cdn.pixabay.com/photo/2023/11/21/22/20/python-8406604_1280.jpg',
     featured: true,
     tags: ['Python', 'Flask', 'Django']
   },
@@ -88,7 +89,7 @@ export const courses: Course[] = [
     author: 'Gustavo Guanabara',
     duration: '40 horas',
     lessons: 41,
-    image: 'https://i.ytimg.com/vi/S9uPNppGsGo/maxresdefault.jpg',
+    image: 'https://cdn.pixabay.com/photo/2023/11/21/22/20/python-8406604_1280.jpg',
     featured: true,
     tags: ['Python', 'Programação', 'Iniciante']
   },
@@ -266,4 +267,16 @@ export function getCourseById(id: string): Course | undefined {
 
 export function getUserById(id: string): User | undefined {
   return users.find(user => user.id === id);
+}
+
+// New function to get related courses based on category and tags
+export function getRelatedCourses(courseId: string, category: string, tags: string[]): Course[] {
+  // Filter courses by same category and at least one matching tag, excluding the current course
+  return courses
+    .filter(course => 
+      course.id !== courseId && 
+      (course.category === category || 
+       course.tags.some(tag => tags.includes(tag)))
+    )
+    .slice(0, 3); // Return max 3 related courses
 }
