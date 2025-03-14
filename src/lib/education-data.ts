@@ -1,4 +1,3 @@
-
 import { Course, User, Post, Lesson } from './types';
 
 export const courses: Course[] = [
@@ -131,6 +130,19 @@ export const courses: Course[] = [
     image: 'https://i.ytimg.com/vi/F7KzJ7e6EAc/maxresdefault.jpg',
     featured: false,
     tags: ['PHP', 'MySQL', 'Web Development']
+  },
+  {
+    id: '11',
+    title: 'Curso de Git & GitHub',
+    description: 'Aprenda a utilizar o Git & GitHub de forma profissional com ênfase em trabalho em equipe. Domine o controle de versão e a colaboração em projetos de software.',
+    level: 'Beginner',
+    category: 'DevTools',
+    author: 'Matheus Battisti',
+    duration: '10 horas',
+    lessons: 22,
+    image: 'https://i.ytimg.com/vi/xEKo29OWILE/maxresdefault.jpg',
+    featured: true,
+    tags: ['Git', 'GitHub', 'Version Control']
   }
 ];
 

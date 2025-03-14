@@ -7,10 +7,11 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getCourseById, getRelatedCourses } from '@/lib/education-data';
 import { toast } from 'sonner';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import CourseCard from '@/components/CourseCard';
 import { Course } from '@/lib/types';
 import CreatePostForm from '@/components/CreatePostForm';
+import { DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 const CourseDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -60,6 +61,7 @@ const CourseDetail = () => {
       'Curso de HTML5 e CSS3': 'Ejkb_YpuHWs',
       'Curso de JavaScript': 'BXqUH86F-kA',
       'Curso de PHP': 'F7KzJ7e6EAc',
+      'Curso de Git & GitHub': 'xEKo29OWILE',
     };
     
     return videoMapping[course.title as keyof typeof videoMapping] || 'S9uPNppGsGo';
@@ -421,12 +423,9 @@ const CourseDetail = () => {
         </>
       )}
 
-      {/* Video Dialog - Updated to remove white borders */}
+      {/* Video Dialog - Updated to remove title */}
       <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
         <DialogContent className="sm:max-w-3xl overflow-hidden p-0">
-          <DialogHeader className="p-6 pb-0">
-            <DialogTitle>Aula Introdutória: {course?.title}</DialogTitle>
-          </DialogHeader>
           <div className="aspect-video w-full">
             <iframe 
               width="100%" 
