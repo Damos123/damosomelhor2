@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Clock, BookOpen, ArrowLeft, CheckCircle, Play, Users, Calendar } from 'lucide-react';
@@ -422,10 +421,10 @@ const CourseDetail = () => {
         </>
       )}
 
-      {/* Video Dialog */}
+      {/* Video Dialog - Updated to remove white borders */}
       <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
-        <DialogContent className="sm:max-w-3xl">
-          <DialogHeader>
+        <DialogContent className="sm:max-w-3xl overflow-hidden p-0">
+          <DialogHeader className="p-6 pb-0">
             <DialogTitle>Aula Introdutória: {course?.title}</DialogTitle>
           </DialogHeader>
           <div className="aspect-video w-full">
@@ -437,7 +436,6 @@ const CourseDetail = () => {
               frameBorder="0" 
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
               allowFullScreen
-              className="rounded-md"
             ></iframe>
           </div>
         </DialogContent>
