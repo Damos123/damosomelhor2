@@ -12,6 +12,8 @@ import CourseCard from '@/components/CourseCard';
 import { Course } from '@/lib/types';
 import CreatePostForm from '@/components/CreatePostForm';
 import { DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import SubscribeForm from '@/components/SubscribeForm';
+import { subscribeToNotifications } from '@/lib/notification-service';
 
 const CourseDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -19,6 +21,7 @@ const CourseDetail = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [videoOpen, setVideoOpen] = useState(false);
   const [relatedCourses, setRelatedCourses] = useState<Course[]>([]);
+  const [subscribeOpen, setSubscribeOpen] = useState(false);
 
   // Criar lições simuladas
   const lessons = Array.from({ length: course?.lessons || 10 }, (_, i) => ({
@@ -41,7 +44,7 @@ const CourseDetail = () => {
   }, [course]);
 
   const handleEnroll = () => {
-    toast.success('Inscrito com sucesso! Você já pode começar a aprender.');
+    setSubscribeOpen(true);
   };
 
   const handleWatchIntro = () => {
@@ -439,6 +442,16 @@ const CourseDetail = () => {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Subscribe Form Dialog */}
+      {course && (
+        <SubscribeForm
+          courseId={course.id}
+          courseName={course.title}
+          isOpen={subscribeOpen}
+          onClose={() => setSubscribeOpen(false)}
+        />
+      )}
     </div>
   );
 };
