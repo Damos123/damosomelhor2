@@ -1,9 +1,9 @@
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, Users, Star, Mail, Code } from 'lucide-react';
 import EduNavbar from '@/components/EduNavbar';
 import CourseCard from '@/components/CourseCard';
+import FeedbackForm from '@/components/FeedbackForm';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { courses } from '@/lib/education-data';
@@ -132,6 +132,18 @@ const Home = () => {
               description="Cursos criados por instrutores experientes abordando as tecnologias mais relevantes do mercado."
             />
           </div>
+        </div>
+      </section>
+      
+      {/* Formulário de Feedback */}
+      <section className="py-16 bg-gray-100">
+        <div className="container mx-auto px-4 md:px-6 max-w-7xl">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Ajude-nos a melhorar</h2>
+            <p className="text-gray-600">Seu feedback é importante para nós. Compartilhe suas opiniões, sugestões ou relatos de problemas.</p>
+          </div>
+          
+          <FeedbackForm />
         </div>
       </section>
       

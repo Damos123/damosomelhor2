@@ -80,3 +80,16 @@ export const sendNotificationToAllSubscribers = (
   
   toast.success(`Notificação enviada para ${courseSubscribers.length} inscritos.`);
 };
+
+// New function to handle feedback submissions
+export const sendFeedbackToAdmin = (
+  adminEmail: string,
+  subject: string,
+  message: string
+): void => {
+  // In a real application, this would use an email service API
+  console.log(`[FEEDBACK NOTIFICATION] To: ${adminEmail}, Subject: ${subject}, Message: ${message}`);
+  
+  // Here you would typically integrate with a backend service/API
+  // to actually send an email to the admin
+};

@@ -15,6 +15,7 @@ import {
   FormMessage 
 } from '@/components/ui/form';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { subscribeToNotifications } from '@/lib/notification-service';
 
 const formSchema = z.object({
   email: z.string().email({ message: "Email inválido" }),
@@ -30,7 +31,6 @@ type SubscribeFormProps = {
 
 const SubscribeForm = ({ courseId, courseName, isOpen, onClose }: SubscribeFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const defaultEmail = "ualfinhe@gmail.com"; // Pre-configured email to receive notifications
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -44,23 +44,15 @@ const SubscribeForm = ({ courseId, courseName, isOpen, onClose }: SubscribeFormP
     setIsSubmitting(true);
     
     try {
-      // In a real application, this would be an API call to your backend
-      console.log("Subscribing user to course:", {
-        courseId,
-        courseName,
-        userEmail: values.email,
-        userName: values.name,
-        notifyEmail: defaultEmail,
-      });
-      
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Use our notification service to subscribe the user
+      await subscribeToNotifications(
+        values.name,
+        values.email,
+        courseId
+      );
       
       toast.success("Inscrito com sucesso! Você receberá notificações por email.");
       onClose();
-      
-      // Send notification to admin (would be handled by a backend in a real app)
-      console.log(`Sending notification to ${defaultEmail} about new subscriber ${values.email} for course ${courseName}`);
     } catch (error) {
       toast.error("Erro ao se inscrever. Tente novamente.");
       console.error("Subscription error:", error);
